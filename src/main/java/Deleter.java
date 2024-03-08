@@ -1,18 +1,18 @@
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.WindowConstants;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class Deleter {
     private int tries = 0;
     private final JList<String> text = new JList<>(new String[]{"Deleter starting..."});
-    private static File logFile = new File("skyclientupdater/files/deleterlog.txt");
 
-    private Deleter() {
-
-    }
+    private Deleter() {}
 
     public static void main(String[] args) throws UnsupportedLookAndFeelException, ClassNotFoundException, InterruptedException, InstantiationException, IllegalAccessException, IOException {
         Deleter deleter = new Deleter();
@@ -20,20 +20,13 @@ public class Deleter {
     }
 
     private void run(String[] files) throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException, InterruptedException, IOException {
-        if (!logFile.getParentFile().mkdirs()) {
-            System.out.println("Failed to mkdirs, setting deleterlog.txt to root");
-            logFile = new File("deleterlog.txt");
-        }
-        if (!logFile.createNewFile()) {
-            System.out.println("Failed to create file, thing may not work");
-        }
-        append("+++ ARGS");
+        append("--- Files to delete :");
         for (String arg : files) {
             append("    " + arg);
         }
-        append("--- ARGS");
+        append("---------------------");
 
-        JFrame frame = new JFrame("Deleter 1.8");
+        JFrame frame = new JFrame("Deleter");
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         JScrollPane scroll = new JScrollPane(text);
         scroll.setBounds(0, 0, 500, 500);
@@ -78,11 +71,6 @@ public class Deleter {
     }
 
     private void append(String string) {
-        try (FileOutputStream fos = new FileOutputStream(logFile, true)) {
-            fos.write((string + "\n").getBytes(StandardCharsets.UTF_8));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         System.out.println(string);
         ArrayList<String> list = getList();
         list.add(string);

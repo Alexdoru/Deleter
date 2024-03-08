@@ -9,7 +9,7 @@ java {
 }
 
 group = 'net.wyvest'
-version = '1.8'
+version = ''
 
 repositories {
     mavenCentral()
