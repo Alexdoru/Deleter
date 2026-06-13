@@ -43,7 +43,6 @@ public class Deleter {
             delete(new File(file));
         }
         append("Done! You can now close this window.");
-        Thread.sleep(50000);
         System.exit(0);
     }
 
